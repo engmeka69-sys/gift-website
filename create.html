@@ -94,17 +94,15 @@
 
 <script>
     function createGift() {
-    const inputs = document.querySelectorAll("input");
+    const name = document.querySelector('input[placeholder="اسم الشخص 🎀"]').value;
+    const occasion = document.querySelector('input[placeholder="مناسبة الهدية 🎉"]').value;
     const message = document.querySelector("textarea").value;
 
-    const name = encodeURIComponent(inputs[0].value);
-    const occasion = encodeURIComponent(inputs[1].value);
-    const msg = encodeURIComponent(message);
-
     window.location.href =
-        `gift.html?name=${name}&occasion=${occasion}&message=${msg}`;
+        "gift.html?name=" + encodeURIComponent(name) +
+        "&occasion=" + encodeURIComponent(occasion) +
+        "&message=" + encodeURIComponent(message);
 }
-
 if (photo) {
     const reader = new FileReader();
 
