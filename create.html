@@ -3,135 +3,119 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>اصنع هديتك 🎁</title>
 
     <style>
-        * {
-            box-sizing: border-box;
-        }
-
         body {
-            margin: 0;
-            min-height: 100vh;
             font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #ffd6e7, #e8d7ff);
+            background: linear-gradient(135deg, #ffe6f2, #f3e5ff);
+            text-align: center;
+            padding: 30px;
             direction: rtl;
-            padding: 30px 15px;
         }
 
-        .box {
-            width: 90%;
-            max-width: 600px;
+        .container {
+            max-width: 500px;
             margin: auto;
             background: white;
             padding: 30px;
-            border-radius: 30px;
-            text-align: center;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
-        }
-
-        .icon {
-            font-size: 60px;
+            border-radius: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
 
         h1 {
-            color: #d94f8a;
+            color: #9b59b6;
         }
 
-        input,
-        textarea {
-            width: 100%;
+        input, textarea {
+            width: 90%;
             padding: 14px;
-            margin: 8px 0;
-            border: 2px solid #f0c2d5;
+            margin: 10px;
+            border: 2px solid #ead5f5;
             border-radius: 15px;
             font-size: 16px;
-            outline: none;
-            font-family: Arial, sans-serif;
+            box-sizing: border-box;
         }
 
         textarea {
-            height: 130px;
+            height: 120px;
             resize: none;
         }
 
         button {
-            width: 100%;
-            padding: 14px;
-            margin-top: 15px;
-            border: none;
-            border-radius: 15px;
-            background: #d94f8a;
+            background: #9b59b6;
             color: white;
-            font-size: 18px;
+            border: none;
+            padding: 14px 30px;
+            border-radius: 25px;
+            font-size: 17px;
             cursor: pointer;
+            margin-top: 15px;
+        }
+
+        button:hover {
+            background: #8e44ad;
+        }
+
+        #preview {
+            display: none;
+            width: 90%;
+            max-height: 250px;
+            object-fit: cover;
+            margin: 15px auto;
+            border-radius: 20px;
         }
     </style>
 </head>
 
 <body>
 
-    <div class="box">
+    <div class="container">
 
-        <div class="icon">🎁</div>
+        <h1>اصنعي هديتك 🎁💗</h1>
 
-        <h1>اصنع هديتك 💗</h1>
+        <input type="text" id="name" placeholder="اسم الشخص 🎀">
 
-        <p>اعملي هدية مميزة لشخص بتحبيه ✨</p>
+        <input type="text" id="occasion" placeholder="مناسبة الهدية 🎉">
 
-        <input type="text" placeholder="اسم الشخص 🎀">
+        <textarea id="message" placeholder="اكتبي رسالتك 💌"></textarea>
 
-        <input type="text" placeholder="مناسبة الهدية 🎉">
+        <input type="file" id="photo" accept="image/*">
 
-        <textarea placeholder="اكتبي رسالتك 💌"></textarea>
-<input type="file" id="photo" accept="image/*">
-        
+        <img id="preview">
 
-    </div><button onclick="window.location.href='gift.html'">إنشاء الهدية 🎁</button>
+        <br>
 
-<script>
-    function createGift() {
-    const name = document.querySelector('input[placeholder="اسم الشخص 🎀"]').value;
-    const occasion = document.querySelector('input[placeholder="مناسبة الهدية 🎉"]').value;
-    const message = document.querySelector("textarea").value;
+        <button onclick="createGift()">إنشاء الهدية 🎁</button>
 
-    window.location.href =
-        "gift.html?name=" + encodeURIComponent(name) +
-        "&occasion=" + encodeURIComponent(occasion) +
-        "&message=" + encodeURIComponent(message);
-}
-if (photo) {
-    const reader = new FileReader();
+    </div>
 
-    reader.onload = function(e) {
-        localStorage.setItem("giftPhoto", e.target.result);
+    <script>
+        const photoInput = document.getElementById("photo");
+        const preview = document.getElementById("preview");
 
-        const name = encodeURIComponent(inputs[0].value);
-        const occasion = encodeURIComponent(inputs[1].value);
-        const msg = encodeURIComponent(message);
+        photoInput.addEventListener("change", function () {
+            const file = this.files[0];
 
-        window.location.href =
-            `gift.html?name=${name}&occasion=${occasion}&message=${msg}`;
-    };
+            if (file) {
+                preview.src = URL.createObjectURL(file);
+                preview.style.display = "block";
+            }
+        });
 
-    reader.readAsDataURL(photo);
-} else {
-    const name = encodeURIComponent(inputs[0].value);
-    const occasion = encodeURIComponent(inputs[1].value);
-    const msg = encodeURIComponent(message);
+        function createGift() {
+            const name = document.getElementById("name").value;
+            const occasion = document.getElementById("occasion").value;
+            const message = document.getElementById("message").value;
 
-    window.location.href =
-        `gift.html?name=${name}&occasion=${occasion}&message=${msg}`;
-}
-        const name = encodeURIComponent(inputs[0].value);
-        const occasion = encodeURIComponent(inputs[1].value);
-        const msg = encodeURIComponent(message);
+            const url =
+                "gift.html?name=" + encodeURIComponent(name) +
+                "&occasion=" + encodeURIComponent(occasion) +
+                "&message=" + encodeURIComponent(message);
 
-        window.location.href =
-            `gift.html?name=${name}&occasion=${occasion}&message=${msg}`;
-    }
-</script>
+            window.location.href = url;
+        }
+    </script>
 
 </body>
 </html>
