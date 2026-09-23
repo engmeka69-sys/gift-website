@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>هدية 💗🎁</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #ffd6e7, #e8d7ff);
+            direction: rtl;
+            padding: 20px;
+        }
+
+        .gift {
+            width: 90%;
+            max-width: 600px;
+            background: white;
+            padding: 40px 30px;
+            border-radius: 30px;
+            text-align: center;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .icon {
+            font-size: 80px;
+        }
+
+        h1 {
+            color: #d94f8a;
+            margin-bottom: 10px;
+        }
+
+        .occasion {
+            color: #888;
+            font-size: 18px;
+        }
+
+        .message {
+            margin-top: 25px;
+            padding: 25px;
+            background: #fff0f6;
+            border-radius: 20px;
+            color: #555;
+            font-size: 20px;
+            line-height: 1.8;
+        }
+
+        button {
+            margin-top: 25px;
+            padding: 13px 25px;
+            border: none;
+            border-radius: 15px;
+            background: #d94f8a;
+            color: white;
+            font-size: 17px;
+            cursor: pointer;
+        }
+        .heart {
+    position: fixed;
+    font-size: 25px;
+    animation: float 4s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+    }
+
+    20% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(-20vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+.gift {
+    animation: appear 0.8s ease;
+}
+
+@keyframes appear {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.share-btn {
+    background: #9b59b6;
+    margin-top: 10px;
+}
+    </style>
+</head>
+
+<body>
+<div class="heart" style="right:10%; animation-delay:0s;">💗</div>
+<div class="heart" style="right:30%; animation-delay:1s;">💕</div>
+<div class="heart" style="right:50%; animation-delay:2s;">💖</div>
+<div class="heart" style="right:70%; animation-delay:0.5s;">💗</div>
+<div class="heart" style="right:90%; animation-delay:1.5s;">✨</div>
+    <div class="gift">
+
+        <div class="icon">🎁</div>
+<img id="giftPhoto" style="display:none; width:100%; max-height:350px; object-fit:cover; border-radius:20px; margin:20px 0;">
+        <h1 id="name">هدية خاصة 💗</h1>
+
+        <div class="occasion" id="occasion"></div>
+
+        <div class="message" id="message"></div>
+
+        
+<button class="share-btn" onclick="copyGiftLink()">
+    مشاركة الهدية 💌
+</button>
+
+<button onclick="window.location.href='dashboard.html'">
+    العودة للوحة الهدايا 🎁
+</button>
+    </div>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+
+        const name = params.get("name");
+        const occasion = params.get("occasion");
+        const message = params.get("message");
+
+        document.getElementById("name").textContent =
+            name ? "إلى " + name + " 💗" : "هدية خاصة 💗";
+
+        document.getElementById("occasion").textContent =
+            occasion ? "بمناسبة: " + occasion : "";
+
+        document.getElementById("message").textContent =
+            message || "أتمنى لكِ أجمل الأيام ✨";
+            function copyGiftLink() {
+    navigator.clipboard.writeText(window.location.href)
+        .then(() => {
+            alert("تم نسخ رابط الهدية 💗🎁");
+        });
+    </script>
+const savedPhoto = localStorage.getItem("giftPhoto");
+
+if (savedPhoto) {
+    const photo = document.getElementById("giftPhoto");
+    photo.src = savedPhoto;
+    photo.style.display = "block";
+}
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>اصنع هديتك 🎁</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #ffd6e7, #e8d7ff);
+            direction: rtl;
+            padding: 30px 15px;
+        }
+
+        .box {
+            width: 90%;
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 30px;
+            text-align: center;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .icon {
+            font-size: 60px;
+        }
+
+        h1 {
+            color: #d94f8a;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 14px;
+            margin: 8px 0;
+            border: 2px solid #f0c2d5;
+            border-radius: 15px;
+            font-size: 16px;
+            outline: none;
+            font-family: Arial, sans-serif;
+        }
+
+        textarea {
+            height: 130px;
+            resize: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            margin-top: 15px;
+            border: none;
+            border-radius: 15px;
+            background: #d94f8a;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="box">
+
+        <div class="icon">🎁</div>
+
+        <h1>اصنع هديتك 💗</h1>
+
+        <p>اعملي هدية مميزة لشخص بتحبيه ✨</p>
+
+        <input type="text" placeholder="اسم الشخص 🎀">
+
+        <input type="text" placeholder="مناسبة الهدية 🎉">
+
+        <textarea placeholder="اكتبي رسالتك 💌"></textarea>
+<input type="file" id="photo" accept="image/*">
+        
+
+    </div><button onclick="createGift()">
+    إنشاء الهدية 🎁
+</button>
+
+<script>
+    function createGift() {
+        const inputs = document.querySelectorAll("input");
+        const message = document.querySelector("textarea").value;
+const photo = document.getElementById("photo").files[0];
+
+if (photo) {
+    const reader = new FileReader();
+
+    reader.onload = function(e) {
+        localStorage.setItem("giftPhoto", e.target.result);
+
+        const name = encodeURIComponent(inputs[0].value);
+        const occasion = encodeURIComponent(inputs[1].value);
+        const msg = encodeURIComponent(message);
+
+        window.location.href =
+            `gift.html?name=${name}&occasion=${occasion}&message=${msg}`;
+    };
+
+    reader.readAsDataURL(photo);
+} else {
+    const name = encodeURIComponent(inputs[0].value);
+    const occasion = encodeURIComponent(inputs[1].value);
+    const msg = encodeURIComponent(message);
+
+    window.location.href =
+        `gift.html?name=${name}&occasion=${occasion}&message=${msg}`;
+}
+        const name = encodeURIComponent(inputs[0].value);
+        const occasion = encodeURIComponent(inputs[1].value);
+        const msg = encodeURIComponent(message);
+
+        window.location.href =
+            `gift.html?name=${name}&occasion=${occasion}&message=${msg}`;
+    }
+</script>
+
+</body>
+</html>
