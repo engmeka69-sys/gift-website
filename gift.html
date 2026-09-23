@@ -110,6 +110,24 @@
     background: #9b59b6;
     margin-top: 10px;
 }
+body {
+    background: linear-gradient(135deg, #ffe6f2, #f3e5ff);
+}
+
+.gift {
+    box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+    border-radius: 25px;
+    padding: 25px;
+}
+
+button {
+    border: none;
+    border-radius: 25px;
+    padding: 12px 25px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
     </style>
 </head>
 
@@ -167,5 +185,112 @@ if (savedPhoto) {
     photo.src = savedPhoto;
     photo.style.display = "block";
 }
+<div id="hearts"></div>
+
+<script>
+function createHeart() {
+    const heart = document.createElement("div");
+
+    const hearts = ["💗", "💕", "💖", "💓", "✨"];
+    heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
+
+    heart.style.position = "fixed";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.bottom = "-40px";
+    heart.style.fontSize = (20 + Math.random() * 20) + "px";
+    heart.style.zIndex = "9999";
+    heart.style.pointerEvents = "none";
+
+    heart.animate(
+        [
+            {
+                transform: "translateY(0) rotate(0deg)",
+                opacity: 1
+            },
+            {
+                transform: "translateY(-110vh) rotate(360deg)",
+                opacity: 0
+            }
+        ],
+        {
+            duration: 3500 + Math.random() * 2000,
+            easing: "linear"
+        }
+    );
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+        heart.remove();
+    }, 5500);
+}
+
+for (let i = 0; i < 15; i++) {
+    setTimeout(createHeart, i * 150);
+}
+
+setInterval(createHeart, 700);
+</script>
+<div id="giftBox" onclick="openGift()">
+    <div class="box-lid">🎀</div>
+    <div class="box-body">🎁</div>
+    <p>اضغطي عليا 💗</p>
+</div>
+
+<style>
+#giftBox {
+    text-align: center;
+    cursor: pointer;
+    margin: 30px auto;
+    animation: bounce 1.5s infinite;
+}
+
+#giftBox .box-lid {
+    font-size: 70px;
+}
+
+#giftBox .box-body {
+    font-size: 90px;
+    margin-top: -25px;
+}
+
+#giftBox p {
+    font-size: 18px;
+    color: #9b59b6;
+    font-weight: bold;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+}
+
+.gift-opened {
+    animation: openBox 0.7s ease;
+}
+
+@keyframes openBox {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.3) rotate(5deg); }
+    100% { transform: scale(1); }
+}
+</style>
+
+<script>
+function openGift() {
+    const box = document.getElementById("giftBox");
+
+    box.classList.add("gift-opened");
+
+    for (let i = 0; i < 30; i++) {
+        setTimeout(createHeart, i * 70);
+    }
+
+    setTimeout(() => {
+        box.innerHTML = "💝<p>الهدية اتفتحت! 💗</p>";
+        box.classList.remove("gift-opened");
+    }, 700);
+}
+</script>
 </body>
 </html>
