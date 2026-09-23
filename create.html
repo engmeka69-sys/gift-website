@@ -3,21 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>هدية ليكي 🎁</title>
+    <title>اصنع هديتك 🎁</title>
 
     <style>
         body {
-            margin: 0;
-            padding: 30px;
             font-family: Arial, sans-serif;
-            text-align: center;
             direction: rtl;
+            text-align: center;
             background: linear-gradient(135deg, #ffe6f2, #f3e5ff);
+            padding: 30px;
         }
 
-        .gift {
+        .container {
             max-width: 500px;
-            margin: 40px auto;
+            margin: auto;
             background: white;
             padding: 30px;
             border-radius: 25px;
@@ -28,76 +27,75 @@
             color: #9b59b6;
         }
 
-        #message {
-            font-size: 19px;
-            line-height: 1.8;
-            margin: 25px 0;
+        input, textarea {
+            width: 90%;
+            box-sizing: border-box;
+            padding: 14px;
+            margin: 10px;
+            border: 2px solid #ead5f5;
+            border-radius: 15px;
+            font-size: 16px;
+        }
+
+        textarea {
+            height: 120px;
+            resize: none;
         }
 
         button {
             background: #9b59b6;
             color: white;
             border: none;
-            padding: 14px 25px;
+            padding: 14px 30px;
             border-radius: 25px;
-            font-size: 16px;
+            font-size: 17px;
             cursor: pointer;
+            margin-top: 10px;
         }
     </style>
 </head>
 
 <body>
 
-    <div class="gift">
+<div class="container">
 
-        <h1>🎁 هدية خاصة 💗</h1>
+    <h1>اصنعي هديتك 🎁💗</h1>
 
-        <h2 id="name"></h2>
+    <input id="name" type="text" placeholder="اسم الشخص 🎀">
 
-        <h3 id="occasion"></h3>
+    <input id="occasion" type="text" placeholder="مناسبة الهدية 🎉">
 
-        <p id="message"></p>
+    <textarea id="message" placeholder="اكتبي رسالتك 💌"></textarea>
 
-        <button onclick="shareGift()">مشاركة الهدية 💌</button>
+    <input id="password" type="password" placeholder="اعملي باسورد للهدية 🔐">
 
-    </div>
+    <br>
 
-    <script>
-        const params = new URLSearchParams(window.location.search);
+    <button onclick="createGift()">إنشاء الهدية 🎁</button>
 
-        const name = params.get("name");
-        const occasion = params.get("occasion");
-        const message = params.get("message");
+</div>
 
-        document.getElementById("name").textContent =
-            name ? "إلى " + name + " 💗" : "هدية خاصة 💗";
+<script>
+function createGift() {
 
-        document.getElementById("occasion").textContent =
-            occasion ? "بمناسبة: " + occasion : "";
+    const name = document.getElementById("name").value;
+    const occasion = document.getElementById("occasion").value;
+    const message = document.getElementById("message").value;
+    const password = document.getElementById("password").value;
 
-        document.getElementById("message").textContent =
-            message || "أتمنى لكِ أجمل الأيام ✨";
+    if (!name || !message || !password) {
+        alert("اكتبي الاسم والرسالة والباسورد الأول 💗");
+        return;
+    }
 
-        function shareGift() {
-            const link = window.location.href;
+    localStorage.setItem("giftPassword", password);
 
-            if (navigator.share) {
-                navigator.share({
-                    title: "هدية خاصة 🎁",
-                    text: "عندك هدية خاصة 💗",
-                    url: link
-                });
-            } else {
-                navigator.clipboard.writeText(link)
-                    .then(() => {
-                        alert("تم نسخ رابط الهدية 💗🎁");
-                    })
-                    .catch(() => {
-                        alert("افتحي الموقع من المتصفح وجربي المشاركة مرة تانية.");
-                    });
-            }
-        }
-    </script>
+    window.location.href =
+        "gift.html?name=" + encodeURIComponent(name) +
+        "&occasion=" + encodeURIComponent(occasion) +
+        "&message=" + encodeURIComponent(message);
+}
+</script>
 
 </body>
 </html>
