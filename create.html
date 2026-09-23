@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>اصنع هديتك 🎁</title>
+    <title>هدية خاصة 🎁</title>
 
     <style>
         body {
@@ -14,87 +14,78 @@
             padding: 30px;
         }
 
-        .container {
+        .gift {
             max-width: 500px;
-            margin: auto;
+            margin: 40px auto;
             background: white;
             padding: 30px;
             border-radius: 25px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+            box-shadow: 0 10px 30px rgba(0,0,0,.12);
         }
 
         h1 {
             color: #9b59b6;
         }
 
-        input, textarea {
-            width: 90%;
-            box-sizing: border-box;
-            padding: 14px;
-            margin: 10px;
-            border: 2px solid #ead5f5;
-            border-radius: 15px;
-            font-size: 16px;
-        }
-
-        textarea {
-            height: 120px;
-            resize: none;
+        #message {
+            font-size: 20px;
+            line-height: 1.8;
+            margin: 25px 0;
         }
 
         button {
             background: #9b59b6;
             color: white;
             border: none;
-            padding: 14px 30px;
+            padding: 14px 25px;
             border-radius: 25px;
-            font-size: 17px;
-            cursor: pointer;
-            margin-top: 10px;
+            font-size: 16px;
         }
     </style>
 </head>
 
 <body>
 
-<div class="container">
+<div class="gift">
 
-    <h1>اصنعي هديتك 🎁💗</h1>
+    <h1>🎁 هدية خاصة 💗</h1>
 
-    <input id="name" type="text" placeholder="اسم الشخص 🎀">
+    <h2 id="name"></h2>
 
-    <input id="occasion" type="text" placeholder="مناسبة الهدية 🎉">
+    <h3 id="occasion"></h3>
 
-    <textarea id="message" placeholder="اكتبي رسالتك 💌"></textarea>
+    <p id="message"></p>
 
-    <input id="password" type="password" placeholder="اعملي باسورد للهدية 🔐">
-
-    <br>
-
-    <button onclick="createGift()">إنشاء الهدية 🎁</button>
+    <button onclick="shareGift()">مشاركة الهدية 💌</button>
 
 </div>
 
 <script>
-function createGift() {
+    const params = new URLSearchParams(window.location.search);
 
-    const name = document.getElementById("name").value;
-    const occasion = document.getElementById("occasion").value;
-    const message = document.getElementById("message").value;
-    const password = document.getElementById("password").value;
+    document.getElementById("name").textContent =
+        params.get("name") ? "إلى " + params.get("name") + " 💗" : "";
 
-    if (!name || !message || !password) {
-        alert("اكتبي الاسم والرسالة والباسورد الأول 💗");
-        return;
+    document.getElementById("occasion").textContent =
+        params.get("occasion") ? "بمناسبة: " + params.get("occasion") : "";
+
+    document.getElementById("message").textContent =
+        params.get("message") || "أتمنى لكِ أجمل الأيام ✨";
+
+    function shareGift() {
+        const link = window.location.href;
+
+        if (navigator.share) {
+            navigator.share({
+                title: "هدية خاصة 🎁",
+                text: "عندك هدية خاصة 💗",
+                url: link
+            });
+        } else {
+            navigator.clipboard.writeText(link);
+            alert("تم نسخ رابط الهدية 💗🎁");
+        }
     }
-
-    localStorage.setItem("giftPassword", password);
-
-    window.location.href =
-        "gift.html?name=" + encodeURIComponent(name) +
-        "&occasion=" + encodeURIComponent(occasion) +
-        "&message=" + encodeURIComponent(message);
-}
 </script>
 
 </body>
